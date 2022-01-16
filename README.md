@@ -3,6 +3,10 @@
 ## !!!Required Java 8+ to run!!!
 if you don't have, that is your fault.
 
+
+
+### Installation
+
 1. Goto [here](https://github.com/bloodnighttw/EzTransfer/releases) to download latest EZT.jar)
 2. Create a folder , and copy file into this folder.
 
