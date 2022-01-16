@@ -17,7 +17,7 @@ fun String.getFirst(): String? {
 			return this.substring(0,i)
 		}
 	}
-	return null;
+	return null
 }
 
 fun String.getSecond(): String?{
@@ -27,7 +27,7 @@ fun String.getSecond(): String?{
 			return this.substring(i+1)
 		}
 	}
-	return null;
+	return null
 }
 
 fun main(args:Array<String>){
@@ -46,7 +46,7 @@ fun main(args:Array<String>){
 	}
 }
 
-data class Beatmap(val id:String, val name:String);
+data class Beatmap(val id:String, val name:String)
 
 fun parseToFile(path:String){
 
@@ -81,8 +81,8 @@ fun back(ezt:String){
 	}
 
 	for( i in arrList){
-		println("start to download file A")
-		download("https://beatconnect.io/b/${i.id}","${System.getProperty("user.dir")}/maps/${i.name}.osr")
+		println("start to download file ${i.name}")
+		download("https://beatconnect.io/b/${i.id}","${System.getProperty("user.dir")}/maps/${i.name}.osz")
 	}
 
 }
