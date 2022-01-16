@@ -4,9 +4,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import java.io.File
-import java.io.FileOutputStream
 import java.io.FileReader
-import java.net.URL
 
 val gson: Gson = GsonBuilder().create()
 
@@ -51,19 +49,19 @@ data class Beatmap(val id:String, val name:String)
 fun parseToFile(path:String){
 
 	val folder = File(path)
-	val arrlist = ArrayList<Beatmap>()
+	val arraylist = ArrayList<Beatmap>()
 
 	folder.listFiles()?.let { subFolder ->
 		for( i in subFolder.filter { it.isDirectory }){
 			val first = i.name.getFirst()
 			val second = i.name.getSecond()
 			if(first != null && second !=null)
-				arrlist.add(Beatmap(first,second))
+				arraylist.add(Beatmap(first, second))
 		}
 	}
 
 	File("backup.ezt").printWriter().use { out ->
-		out.println(gson.toJson(arrlist))
+		out.println(gson.toJson(arraylist))
 	}
 
 }
@@ -71,27 +69,19 @@ fun parseToFile(path:String){
 fun back(ezt:String){
 
 	val a = FileReader(ezt).readText()
-	val myType = object :TypeToken<ArrayList<Beatmap>>(){}.type
-	val arrList = gson.fromJson<ArrayList<Beatmap>>(a,myType)
+	val myType = object : TypeToken<ArrayList<Beatmap>>() {}.type
+	val arrList = gson.fromJson<ArrayList<Beatmap>>(a, myType)
 
 	val dir = File("${System.getProperty("user.dir")}/maps/")
 	println(dir.path)
-	if(dir.exists() || !dir.isDirectory){
+	if (dir.exists() || !dir.isDirectory) {
 		dir.mkdir()
 	}
 
-	for( i in arrList){
-		println("start to download file ${i.name}")
-		download("https://beatconnect.io/b/${i.id}","${System.getProperty("user.dir")}/maps/${i.name}.osz")
+	arrList.forEach {
+		TestList.add(it)
 	}
 
+	runTasks()
 }
 
-
-fun download(link:String,path:String){
-	URL(link).openStream().use { input ->
-		FileOutputStream(path).use { output ->
-			 input.copyTo(output)
-		}
-	}
-}
